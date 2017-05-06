@@ -1,0 +1,132 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <!-- ES 5.1 / 6 = 2015 / 2016 / 2017 / 2018 -->
+
+        <script>
+
+            /*
+
+            var f1 = function() {};
+            var f2;
+
+            */
+            
+            f1();
+            f2();
+
+            function f1() {
+                test = 'test';
+            }
+
+            var f2 = function() {
+
+            }
+
+            // ============================================
+
+            (function(jQuery) {
+
+            })($);
+
+            /*
+
+            var $ = (function() {
+
+            })();
+
+            function callback(jQuery) {
+
+            }
+
+            callback($);
+
+            */
+
+            function ftest() {
+                var a = 'test';
+
+                console.log(a);
+                console.log(this);
+            }
+
+            function f2test(str) {
+                this.a = str;
+
+                console.log(this.a);
+            }
+
+            var obj = {};
+            f2test.call(obj, 'test');
+            f2test.apply(obj, ['test']);
+
+            // f2test.bind(obj);
+
+            function User(name) {
+                this.name = name;
+                var roles = [];
+
+                this.addRole = function(roleName) {
+                    roles.push(roleName);
+                }
+            }
+
+            User.prototype.f = function() {
+
+            }
+
+            var u = new User('Tom');
+
+            var Users = (function() {
+                var User = function(name) {
+                    this.name = name;
+                }
+
+                return {
+                    User: User
+                };
+            })();
+
+            var u2 = new Users.User('Tom');
+
+            var Admin = function(name) {
+                User.call(this, name);
+
+                this.addRole('root');
+            }
+
+            Admin.prototype = Object.create(User.prototype);
+
+            Admin.prototype.f = function() {
+
+            }
+
+            var add = function(val) {
+                this.value += val;
+            }
+
+            var Calc = function() {
+                this.value = 0;
+            }
+
+            Calc.prototype.add = add;
+
+            var c = new Calc();
+            //add.call(c, 10);
+            c.add(10);
+
+            // Object.create() == {} == new Object()
+
+            /*
+
+            класс Calc - калькулятор с функциями add, subs, divide, mult (нужно проверить входящее значение, что это число)
+            Проверить divide на 0
+
+            класс MathCalc - калькулятор с двумя функциями cos и tan (Math.cos, Math.tan), он должен быть наследником Calc.
+
+            */
+
+        </script>
+    </body>
+</html>

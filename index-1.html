@@ -1,0 +1,133 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <!-- ES 5.1 / 6 = 2015 / 2016 / 2017 / 2018 -->
+
+        <script>
+            var a; // = undefined
+            a = 'test';
+            a = 5;
+
+            var obj = {}; // 60
+
+            obj.a; // undefined
+
+            function f1() {
+                'use strict';
+            }
+
+            // eval('...')
+
+            // +=
+
+            var obj2 = null;
+            // typeof obj2 == "object"
+
+            // +
+            // -
+            // *
+            // /
+
+            // ==, !=
+            // ===, !==
+
+            if (a) {
+
+            }
+
+            var o = {
+                a: undefined
+            };
+
+            if (o.a != undefined) {
+
+            } else if (o.b != undefined) {
+
+            }
+
+            switch(value) {
+                case 0: //...
+                    break;
+                case 1: //...
+                    break;
+                default:
+            }
+
+            for (var i = 0; i < 10; i++) {
+
+            }
+
+            // i == 10
+
+            var i = 0;
+            for (; i < 10;) {
+
+                i++;
+            }
+
+            while (i < 10) {
+
+                i++;
+            }
+
+            do {
+
+            }
+            while (i < 10)
+
+            var arr = [0, 1, 2, 5, 10, 25];
+            var sum = 0;
+            arr.forEach(function(value) {
+                sum += value;
+            });
+
+            arr.forEach(() => {
+                 sum += arguments[0];
+            });
+
+            console.log(sum);
+
+            function callback(value, index, array) {
+
+            }
+
+            arr.every((value) => value >= 0);
+            
+            var new_arr = arr.map((value) => value * value);
+
+            if (arr.indexOf(0) == -1) {
+
+            }
+
+            /*
+
+            function callback() {
+                var value = arguments[0];
+                var index = arguments[1];
+                var array = arguments[2];
+            }
+
+            */
+
+            var obj = {
+                a: 'test',
+                f: function() {}
+            };
+
+            obj.f();
+            obj["f"];
+
+            eval('function() {}');
+            eval(obj.f.toString())();
+
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    // key == "a", obj[key] == 'test'
+                    // key == "f"
+                }
+            }
+
+        </script>
+    </body>
+</html>
