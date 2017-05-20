@@ -1,0 +1,33 @@
+<div class="container">
+  <div>
+    <h3>Super Calculator</h3>
+    <form class="form-inline" #heroForm="ngForm">
+      <input [(ngModel)]="first" type="number" class="input-small" [ngModelOptions]="{standalone: true}"/>
+      <select class="span1" [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let o of operators" value="{{o}}">{{ o }}</option>
+      </select>
+      <input [(ngModel)]="second" type="number" class="input-small" [ngModelOptions]="{standalone: true}"/>
+      <button (click)="doAction()" class="btn">Go!</button>
+      <h2>{{ latest }}</h2>
+    </form>
+  </div>
+  <h4>History</h4>
+  <table class="table">
+    <thead><tr>
+      <th>Time</th>
+      <th>Expression</th>
+      <th>Result</th>
+    </tr></thead>
+    <tr *ngFor="let result of memory">
+      <td>
+        {{ result.timestamp | date:'medium' }}
+      </td>
+      <td>
+        <span>{{ result.first }}</span>
+        <span>{{ result.operator }}</span>
+        <span>{{ result.second }}</span>
+      </td>
+      <td>{{ result.value }}</td>
+    </tr>
+  </table>
+</div>

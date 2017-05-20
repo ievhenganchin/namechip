@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="submit-form" action="...">
+        <input type="text" value="" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+
+        var form = document.getElementById("submit-form");
+        var inputs = form.getElementsByTagName("input");
+
+        //$("#submit-form > input")
+
+        document.querySelector("#submit-form > button").onclick = function() {
+            // ...
+            this.onclick = undefined;
+        }
+
+        document.querySelector("#submit-form > button").addEventListener("click", function() {
+
+        });
+
+        // =======================================
+
+        for (var i = 0; i < 10; i++) {
+            document.getElementsByTagName("button")[i].onclick = (function(index) {
+                // var index = arguments[0]
+                return function(event) {
+                    console.log(index);
+                };
+            })(i);
+        }
+
+        // =======================================
+
+        setTimeout(function() {}, 5000);
+
+        var pointer = setInterval(function() {}, 2000);
+        clearInterval(pointer);
+
+    </script>
+</body>
+</html>
