@@ -1,4 +1,5 @@
 import { APIPage } from './pages/api.po';
+import { browser } from 'protractor';
 
 describe('ng-namecheap API App', () => {
     let page: APIPage;
@@ -15,6 +16,7 @@ describe('ng-namecheap API App', () => {
         expect(1).toEqual(1);
     });
 
+    /*
     it('test', () => {
         var request = require('request');
         var xmlParser = require('xml2js');
@@ -40,33 +42,35 @@ describe('ng-namecheap API App', () => {
         }
 
         request(options, callback);
-    });
+    }); */
 
     it('test 2', () => {
         let rp = require('request-promise');
         var xmlParser = require('xml2js');
 
-        rp('http://api.sandbox.namecheap.com/xml.response?Command=namecheap.users.create&NewUserPassword=Qwerty123&NewUserName=capybara1&FirstName=cap&LastName=bar&EmailAddress=capybatatest%40gmail.com&AcceptTerms=1&ApiKey=f5c3e9df301b46aa83488f6a85fdb90c&ApiUser=suresh&ClientIP=127.0.0.1')
-            .then(data => callback(data));
+        var result = new Promise<any>((resolve, reject) => {
+            rp('http://api.sandbox.namecheap.com/xml.response?Command=namecheap.users.create&NewUserPassword=Qwerty123&NewUserName=capybara1&FirstName=cap&LastName=bar&EmailAddress=capybatatest%40gmail.com&AcceptTerms=1&ApiKey=f5c3e9df301b46aa83488f6a85fdb90c&ApiUser=suresh&ClientIP=127.0.0.1')
+                .then((xml) =>  {
+                    xmlParser.parseString(xml, function (err, res) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(res);
+                        }
+                    });
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        });
 
-        function callback(xml): Promise<any> {
+        browser.wait(() => {
+            return result.then((data) => {
+                console.log(data);
+                expect(data['ApiResponse'].Errors[0].Error[0]["_"]).toEqual('User already exists');
 
-            console.log('++++++++++++++++Body: ', xml);
-
-            return new Promise<any>((resolve, reject) => {
-                xmlParser.parseString(xml, function (err, res) {
-                    if (err) {
-                        console.log('++++++++++++++++Error: ', err);
-                        reject(err);
-                    } else {
-                        console.log('++++++++++++++++Info: ', res['ApiResponse'].Errors[0].Error[0]["_"]);
-                        expect(res['ApiResponse'].Errors[0].Error[0]["_"]).toEqual('User already exists1');
-                        resolve(res['ApiResponse'].Errors[0].Error[0]["_"]);
-                    }
-                });
+                return true;
             });
-        }
+        });
     });
-
-    // Errors[0].Error[0]["_"] => User already exists
 });
